@@ -1,20 +1,6 @@
 #
 # Cookbook Name:: mongodb
 # Recipe:: default
-mongodb_filename = "mongodb-linux-#{node[:mongodb][:architecture]}-#{node[:mongodb][:version]}"
-mongodb_name = "mongodb-#{node[:mongodb][:version]}"
-
-bash "install-mongodb" do
-  user "root"
-  cwd "/tmp"
-  code <<-EOH
-  curl -O http://downloads.mongodb.org/linux/#{mongodb_filename}.tgz
-  tar zxvf #{mongodb_filename}.tgz
-  mv #{mongodb_filename} #{node[:mongodb][:root]}
-  rm #{mongodb_filename}.tgz
-  EOH
-  not_if { File.directory?(node[:mongodb][:root]) }
-end
 
 group node[:mongodb][:group] do
   action [ :create, :manage ]
@@ -38,14 +24,45 @@ end
   end
 end
 
+if !(::File.exists?("/tmp/#{node[:mongodb][:file_name]}.tgz"))
+  Chef::Log.info "Downloading MongoDB from #{node[:mongodb][:url]}. This could take a while..."
+  remote_file "/tmp/#{node[:mongodb][:file_name]}.tgz" do
+    source node[:mongodb][:url]
+    not_if { ::File.exists?("/tmp/#{node[:mongodb][:file_name]}.tgz") }
+  end
+end
+
+bash "install-mongodb" do
+  cwd "/tmp"
+  code <<-EOH
+  tar zxvf #{node[:mongodb][:file_name]}.tgz
+  mv #{node[:mongodb][:file_name]} #{node[:mongodb][:root]}
+  EOH
+  not_if { File.directory?(node[:mongodb][:root]) }
+end
+
+# create config directory and file
+directory "/etc/mongodb" do
+  action :create
+  owner "root"
+  group "root"
+  mode 0755
+end
+template "/etc/mongodb/mongodb.conf" do
+  source "mongodb.conf.erb"
+  owner "root"
+  group "root"
+  mode 0744
+  notifies :restart, resources(:service => "mongodb")
+end
+
+# create init.d service
 template "/etc/init.d/mongodb" do
   source "init.sh.erb"
   owner "root"
   group "root"
-  mode 0700
-  variables(:node => node)
+  mode 0755
 end
-
 service "mongodb" do
   supports :start => true, :stop => true, :restart => true
   action [ :enable, :start ]

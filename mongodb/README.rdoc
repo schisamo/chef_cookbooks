@@ -4,14 +4,15 @@ Complete Debian/Ubuntu style MongoDB configuration.
 
 = REQUIREMENTS:
 
-Debian or Ubuntu preferred.  Tested on Ubuntu 8.04 Server LTS
+Debian or Ubuntu only for now.  Tested on Ubuntu 8.04 Server LTS
 
 = ATTRIBUTES:
 
 The file attributes/mongodb.rb contains the following attribute types:
-
+* user/group mongodb daemon as
 * platform specific locations and settings.
-* version and architecture settings
+* version
+* download url
 * general settings
 
 = USAGE:
