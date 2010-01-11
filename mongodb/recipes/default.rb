@@ -41,6 +41,18 @@ bash "install-mongodb" do
   not_if { File.directory?(node[:mongodb][:root]) }
 end
 
+# create init.d service
+template "/etc/init.d/mongodb" do
+  source "init.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+service "mongodb" do
+  supports :start => true, :stop => true, :restart => true
+  action [ :enable, :start ]
+end
+
 # create config directory and file
 directory "/etc/mongodb" do
   action :create
@@ -54,16 +66,4 @@ template "/etc/mongodb/mongodb.conf" do
   group "root"
   mode 0744
   notifies :restart, resources(:service => "mongodb")
-end
-
-# create init.d service
-template "/etc/init.d/mongodb" do
-  source "init.sh.erb"
-  owner "root"
-  group "root"
-  mode 0755
-end
-service "mongodb" do
-  supports :start => true, :stop => true, :restart => true
-  action [ :enable, :start ]
 end
