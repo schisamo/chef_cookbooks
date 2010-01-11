@@ -24,7 +24,7 @@ end
   end
 end
 
-if !(::File.exists?("/tmp/#{node[:mongodb][:file_name]}.tgz"))
+if !(::File.exists?("/tmp/#{node[:mongodb][:file_name]}.tgz")) && !(::File.directory?(node[:mongodb][:root]))
   Chef::Log.info "Downloading MongoDB from #{node[:mongodb][:url]}. This could take a while..."
   remote_file "/tmp/#{node[:mongodb][:file_name]}.tgz" do
     source node[:mongodb][:url]
@@ -38,7 +38,7 @@ bash "install-mongodb" do
   tar zxvf #{node[:mongodb][:file_name]}.tgz
   mv #{node[:mongodb][:file_name]} #{node[:mongodb][:root]}
   EOH
-  not_if { File.directory?(node[:mongodb][:root]) }
+  not_if { ::File.directory?(node[:mongodb][:root]) }
 end
 
 # create init.d service
