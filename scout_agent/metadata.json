@@ -1,0 +1,43 @@
+{
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "recipes": {
+    "scout_agent": ""
+  },
+  "conflicting": {
+
+  },
+  "dependencies": {
+
+  },
+  "providing": {
+    "scout_agent": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\nInstalls the {Scout Agent}[http://scoutapp.com] gem and schedules it to run the {Scout-recommended way (via Cron)}[https://scoutapp.com/info/support#cron].\n\n= REQUIREMENTS:\n\nDebian or Ubuntu preferred.  Tested on Ubuntu 8.04 Server LTS, may work on others.\n\nThe Scout Agent requires a valid Scout account. You also need a unique server key which is displayed in your Scout accounts 'server settings' tab.\n\nIt looks like:\n\n  6ecad322-0d17-4cb8-9b2c-a12c4541853f\n\n= ATTRIBUTES:\n\n* scout_agent[:user] - User to run Scout agent under.  Will be created if it does not exist.  Default is 'scout'.\n* scout_agent[:group] - User group to run Scout agent under.  Will be created if it does not exist.  Default is 'scout'.\n* scout_agent[:version] - Gem version to install.  Default is 5.0.3.\n* scout_agent[:key] - Used to validate your agent when it checks into the Scout server.\n\n= USAGE:\n\nInclude the scout_monitor recipe to install Scout Agent and configure a Cron job to run it.  Be sure to set the scout_agent[:key] attribute on every node where you want the agent to run.\n\n= LICENSE & AUTHOR:\n\nAuthor:: Seth Chisamore (<schisamo@gmail.com>)\nCopyright:: 2010, Seth Chisamore\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "description": "Installs and configures the Scout Agent",
+  "platforms": {
+    "debian": [
+
+    ],
+    "ubuntu": [
+
+    ]
+  },
+  "version": "0.1.0",
+  "replacing": {
+
+  },
+  "maintainer": "Seth Chisaore",
+  "name": "scout_agent",
+  "recommendations": {
+
+  },
+  "attributes": {
+
+  },
+  "maintainer_email": "schisamo@gmail.com"
+}

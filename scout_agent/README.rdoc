@@ -1,0 +1,41 @@
+= DESCRIPTION:
+
+Installs the {Scout Agent}[http://scoutapp.com] gem and schedules it to run the {Scout-recommended way (via Cron)}[https://scoutapp.com/info/support#cron].
+
+= REQUIREMENTS:
+
+Debian or Ubuntu preferred.  Tested on Ubuntu 8.04 Server LTS, should work on others.
+
+The Scout Agent requires a valid Scout account. You also need a unique server key which is displayed in your Scout accounts 'server settings' tab.
+
+It looks like:
+
+  6ecad322-0d17-4cb8-9b2c-a12c4541853f
+
+= ATTRIBUTES:
+
+* scout_agent[:user] - User to run Scout agent under.  Will be created if it does not exist.  Default is 'scout'.
+* scout_agent[:group] - User group to run Scout agent under.  Will be created if it does not exist.  Default is 'scout'.
+* scout_agent[:version] - Gem version to install.  Default is 5.0.3.
+* scout_agent[:key] - Used to validate your agent when it checks into the Scout server.
+
+= USAGE:
+
+Include the scout_monitor recipe to install Scout Agent and configure a Cron job to run it.  Be sure to set the scout_agent[:key] attribute on every node where you want the agent to run.
+
+= LICENSE & AUTHOR:
+
+Author:: Seth Chisamore (<schisamo@gmail.com>)
+Copyright:: 2010, Seth Chisamore
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
