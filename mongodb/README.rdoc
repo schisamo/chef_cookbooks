@@ -4,16 +4,22 @@ Complete Debian/Ubuntu style MongoDB configuration.
 
 = REQUIREMENTS:
 
-Debian or Ubuntu only for now.  Tested on Ubuntu 8.04 Server LTS
+Debian or Ubuntu preferred.  Tested on Ubuntu 8.04 Server LTS, should work on others.
 
 = ATTRIBUTES:
 
-The file attributes/mongodb.rb contains the following attribute types:
-* user/group mongodb daemon as
-* platform specific locations and settings.
-* version
-* download url
-* general settings
+* mongodb[:user] = User to install and run MongoDB under. Default: "mongodb"
+* mongodb[:group] = User group to install and run MongoDB under. Default: "mongodb"
+* mongodb[:bind_address] = Specifies a single IP that the database server will listen for. Default: "127.0.0.1"
+* mongodb[:port] = Specifies the port number on which Mongo will listen for client connections. Default: "27017"
+* mongodb[:version] = MongoDB version to install. Default: '1.2.0'
+* mongodb[:file_name] = Default: "mongodb-linux-#{kernel[:machine] || 'i686'}-#{mongodb[:version]}"
+* mongodb[:url] = Url to download MongoDB files from. Default: "http://downloads.mongodb.org/linux/#{mongodb[:file_name]}.tgz"
+* mongodb[:root] = Location to install MongoDB files to.  Default: "/usr/local/mongodb"
+* mongodb[:data_dir] = Specifies the directory for datafiles. Default: "/var/lib/mongodb"
+* mongodb[:log_dir] = Directory to write log files to. Default: "/var/log/mongodb"
+* mongodb[:config_dir] = Directory to read MongoDB conf file from. Default: "/etc/mongodb"
+* mongodb[:pid_dir] = Directory for inti.d service to write pid file to. Default: "/var/run"
 
 = USAGE:
 
@@ -26,7 +32,7 @@ Include the mongodb recipe to install MongoDB and get 'sane' default settings.
 = LICENSE & AUTHOR:
 
 Author:: Seth Chisamore (<schisamo@gmail.com>)
-Copyright:: 2009, MaxMedia, Inc
+Copyright:: 2010, Seth Chisamore
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
