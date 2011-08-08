@@ -5,6 +5,7 @@
 dbpath = <%= @node[:mongodb][:data_dir] %>
 #bind_ip = <%= @node[:mongodb][:bind_address] %>
 port = <%= @node[:mongodb][:port] %>
-logpath = <%= @node[:mongodb][:log_dir] %>/mongodb.log
+fork = true # If this isn't there, it hangs the chef-client as well as the service startup
+logpath = <%= @node[:mongodb][:log_file] %>
 logappend = true
 noauth = true
