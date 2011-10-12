@@ -1,0 +1,7 @@
+#
+# Dropped here by Chef - local modifications will be replaced
+#
+[10gen]
+name=10gen Repository
+baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/$basearch
+gpgcheck=0
